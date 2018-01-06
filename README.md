@@ -23,19 +23,51 @@ At the moment an initial foundation exists and is working.  This is not in produ
 
 ### Script HARD
 
-HARD starts the JACK server connected to real audio hardware.  I have a USB stereo audio device in use, whose ALSA name (see /proc/asound/cards) is "Device", thus:
+HARD starts the single JACK server connected to real audio hardware.  I have a USB stereo audio device in use, whose ALSA name (see /proc/asound/cards) is "Device", thus:
 
     #/bin/bash
     /usr/bin/jackd -nHARD -dalsa -r48000 -p512 -n3 -Xraw -D -Chw:Device -Phw:Device
-  
-### Script SOFT
 
-SOFT starts the first JACK server not connected to audio hardware.  It runs the dummy driver.  This script is invoked with a single command-line option, which is the soft server number.  zita-njbridge supports a theoretical maximum of 64 total servers, which means 1 hard and 63 soft.  
+In current testing, this is run within its own xterm.
+
+It is unclear whether multiple hard servers could be supported; this might be possible by containerization, so that each hard server would be given its own multicast IP.  Food for thought anyhow.
+
+### Script HARD-IP
+
+HARD-IP needs to be run after HARD starts, after jackd -nHARD is running and confirmed good.  It starts zita-n2j, which connects to the hard server, and waits to receive audio data from soft servers, via multicast on port 54321:
 
     #/bin/bash
-    /usr/bin/jackd -nPART$1 -ddummy -r48000 -p512
-  
-### Addendum
+    zita-n2j --jserv HARD 127.0.0.1 54321
 
-It is unclear whether multiple hard servers could be supported; this might be possible by containerization, so that each hard server would be given its own multicast IP.
+In current testing, this is run within its own xterm.
+
+### Script SOFT
+
+SOFT starts JACK servers not connected to audio hardware.  They run the dummy driver.  This script is invoked with a single command-line option, which is the soft server number.  zita-njbridge supports a theoretical maximum of 64 total servers, which means 1 hard and 63 soft.  
+
+    #/bin/bash
+    /usr/bin/jackd -nSOFT$1 -ddummy -r48000 -p512
+
+For the current test example, after HARD and HARD-IP are running in their separate xterms, I start two more xterms, one running this command:
+
+    bash SOFT 1
+
+the other
+
+    bash SOFT 2
+
+### Script SOFT-IP
+
+SOFT-IP needs to be started after all soft JACK servers are running.  It starts zita-j2n, which connects to each soft server, and then looks for zita-n2j over multicast and connects to it, completing the connections between each soft server and the hard server.
+
+    #/bin/bash
+    zita-j2n --jserv SOFT$1 --float 127.0.0.1 54321
+    
+For the current test example, after all of the above are running in their separate xterms, I start two more xterms, one running this command:
+
+    bash SOFT-IP 1
+
+the other
+
+    bash SOFT-IP 2
   
