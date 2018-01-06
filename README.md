@@ -25,15 +25,15 @@ At the moment an initial foundation exists and is working.  This is not in produ
 
 HARD starts the JACK server connected to real audio hardware.  I have a USB stereo audio device in use, whose ALSA name (see /proc/asound/cards) is "Device", thus:
 
-  #/bin/bash
-  /usr/bin/jackd -nHARD -dalsa -r48000 -p512 -n3 -Xraw -D -Chw:Device -Phw:Device
+    #/bin/bash
+    /usr/bin/jackd -nHARD -dalsa -r48000 -p512 -n3 -Xraw -D -Chw:Device -Phw:Device
   
 ### Script SOFT
 
 SOFT starts the first JACK server not connected to audio hardware.  It runs the dummy driver.  This script is invoked with a single command-line option, which is the soft server number.  zita-njbridge supports a theoretical maximum of 64 total servers, which means 1 hard and 63 soft.  
 
-  #/bin/bash
-  /usr/bin/jackd -nPART$1 -ddummy -r48000 -p512
+    #/bin/bash
+    /usr/bin/jackd -nPART$1 -ddummy -r48000 -p512
   
 ### Addendum
 
