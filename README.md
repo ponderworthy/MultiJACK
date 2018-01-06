@@ -30,8 +30,12 @@ HARD starts the JACK server connected to real audio hardware.  I have a USB ster
   
 ### Script SOFT
 
-SOFT starts the first JACK server not connected to audio hardware.  It runs the dummy driver.  This script is invoked with a single command-line option, which is the soft server number.  zita-njbridge supports a theoretical maximum of 64 total servers, which means 1 hard and 63 soft.  It is unclear whether multiple hard servers could be supported; this might be possible by containerization, so that each hard server would be given its own multicast IP.
+SOFT starts the first JACK server not connected to audio hardware.  It runs the dummy driver.  This script is invoked with a single command-line option, which is the soft server number.  zita-njbridge supports a theoretical maximum of 64 total servers, which means 1 hard and 63 soft.  
 
   #/bin/bash
   /usr/bin/jackd -nPART$1 -ddummy -r48000 -p512
+  
+### Addendum
+
+It is unclear whether multiple hard servers could be supported; this might be possible by containerization, so that each hard server would be given its own multicast IP.
   
