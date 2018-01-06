@@ -100,6 +100,6 @@ So if we want to run, say, Yoshimi, and attach it to soft server #1, we might do
 
     JACK_DEFAULT_SERVER=SOFT1 bash -c 'yoshimi'
     
-### Addenda
+### Addendum re: latency and performance
 
-You may notice that the -p setting in HARD is 512 right now, and 128 in SOFT.  
+You may notice that the -p setting in HARD is 512 right now, and 128 in SOFT.  I am currently testing on a non-production box, quite slow, and thus had to set -p512 (giving 32ms latency) for the hard server.  But I was able to set the soft servers to 128, which means according to the zita-njbridge docs, that the total latency is therefore not much more than the hard server's.  This is a very positive development.  
