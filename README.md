@@ -99,3 +99,7 @@ How do we do actual use testing?  Well, to make this work at all, each JACK serv
 So if we want to run, say, Yoshimi, and attach it to soft server #1, we might do this:
 
     JACK_DEFAULT_SERVER=SOFT1 bash -c 'yoshimi'
+    
+### Addenda
+
+You may notice that the -p setting in HARD is 512 right now, and 128 in SOFT.  
