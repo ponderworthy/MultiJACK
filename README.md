@@ -82,4 +82,16 @@ For the current test example, after all of the above are running in their separa
 the other
 
     bash SOFT-IP 2
-  
+
+### Real Testing and Use
+
+So we have the following, each started in its own xterm, in order:
+
+    HARD
+    HARD-IP
+    SOFT 1
+    SOFT 2
+    SOFT-IP 1
+    SOFT-IP 2
+
+How do we do actual use testing?  Well, to make this work at all, each JACK server has to have its own name.  This has been a standard ability of JACK for ages, but almost never used.  There are two ways to use a named JACK server.  One is via command-line option; for zita-j2n above, the option is "--jserv", and many (but definitely not all, and possibly not even most) JACK client applications will let you specify JACK server name by a command line option.  
