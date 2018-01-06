@@ -26,6 +26,9 @@ At the moment an initial foundation exists and is working.  Python scripting for
 HARD starts the single JACK server connected to real audio hardware.  I have a USB stereo audio device in use, whose ALSA name (see /proc/asound/cards) is "Device", thus:
 
     #/bin/bash
+    echo ""
+    echo "Starting hard JACK server ..."
+    echo ""
     /usr/bin/jackd -nHARD -dalsa -r48000 -p512 -n3 -Xraw -D -Chw:Device -Phw:Device
 
 In current testing, this is run within its own xterm.
@@ -37,6 +40,9 @@ It is unclear whether multiple hard servers could be supported; this might be po
 HARD-IP needs to be run after HARD starts, after jackd -nHARD is running and confirmed good.  It starts zita-n2j, which connects to the hard server, and waits to receive audio data from soft servers, via multicast on port 54321:
 
     #/bin/bash
+    echo ""
+    echo "Starting zita-n2j ..."
+    echo ""
     zita-n2j --jserv HARD 127.0.0.1 54321
 
 In current testing, this is run within its own xterm.
@@ -46,7 +52,10 @@ In current testing, this is run within its own xterm.
 SOFT starts JACK servers not connected to audio hardware.  They run the dummy driver.  This script is invoked with a single command-line option, which is the soft server number.  zita-njbridge supports a theoretical maximum of 64 total servers, which means 1 hard and 63 soft.  
 
     #/bin/bash
-    /usr/bin/jackd -nSOFT$1 -ddummy -r48000 -p512
+    echo ""
+    echo "Starting soft JACK server #"$1" ..."
+    echo ""
+    /usr/bin/jackd -nSOFT$1 -ddummy -r48000 -p128
 
 For the current test example, after HARD and HARD-IP are running in their separate xterms, I start two more xterms, one running this command:
 
@@ -61,6 +70,9 @@ the other
 SOFT-IP needs to be started after all soft JACK servers are running.  It starts zita-j2n, which connects to each soft server, and then looks for zita-n2j over multicast and connects to it, completing the connections between each soft server and the hard server.
 
     #/bin/bash
+    echo ""
+    echo "Starting zita-j2n #"$1" ..."
+    echo ""
     zita-j2n --jserv SOFT$1 --float 127.0.0.1 54321
     
 For the current test example, after all of the above are running in their separate xterms, I start two more xterms, one running this command:
