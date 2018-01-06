@@ -19,7 +19,7 @@ zita-njbridge appears to be a method quite close at hand, to give us (a) IP tran
 
 ## Current Structure
 
-At the moment an initial foundation exists and is working.  Python scripting for control is next.  This will not play ball with PulseAudio or Cadence for the known future, major work on them would be required.  I do use qjackctl to discover and prove jackd command lines and latency settings, but only for discovery and proving, because it too is explicitly not designed for this purpose, and if my experiences are representative, attempts to use it are likely to result in confusion and frustration :-)
+At the moment an initial foundation exists and is working.  Python scripting for control is next.  This will not play ball with Cadence or PulseAudio for the known future, major work on them would be required.  I do use qjackctl to discover and prove jackd command lines and latency settings, but only for discovery and proving, because it too is explicitly not designed for this purpose, and if my experiences are representative, attempts to use it are likely to result in confusion and frustration :-)
 
 ### Script HARD
 
