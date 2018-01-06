@@ -4,7 +4,7 @@ The purpose of this project is to increase available audio DSP power available t
 
 ## History and Theory
 
-This project began shortly after I noticed that I was using 75% of JACK DSP capability, while pushing an octocore AMD X3 with 8G RAM to only about 25% CPU, fairly evenly spread out across all cores, including a large amount of audio synthesis as well as soundfont rendering.
+This project began shortly after I noticed that I was using 75% of JACK DSP capability, while pushing an octocore AMD X3 with 8G RAM to only about 25% CPU, fairly evenly spread out across all cores, including a large amount of audio synthesis as well as soundfont rendering, using only about 10% RAM.  I wanted to add more capability to the box, but had capped out on JACK DSP.
 
 There have been many failed attempts so far.  Noteworthy JACK devs have suggested publicly that it cannot work at all.
 
