@@ -94,4 +94,8 @@ So we have the following, each started in its own xterm, in order:
     SOFT-IP 1
     SOFT-IP 2
 
-How do we do actual use testing?  Well, to make this work at all, each JACK server has to have its own name.  This has been a standard ability of JACK for ages, but almost never used.  There are two ways to use a named JACK server.  One is via command-line option; for zita-j2n above, the option is "--jserv", and many (but definitely not all, and possibly not even most) JACK client applications will let you specify JACK server name by a command line option.  
+How do we do actual use testing?  Well, to make this work at all, each JACK server has to have its own name.  This has been a standard ability of JACK for ages, but almost never used.  There are two ways to use a named JACK server.  One is via command-line option; for zita-j2n above, the option is "--jserv", and many (but definitely not all, and possibly not even most) JACK client applications will let you specify JACK server name by a command line option.  The other is an environment variable: the JACK client library looks for $JACK_DEFAULT_SERVER, to give the name of the JACK server, and if the variable is present will use it unless told otherwise by code inside the client application.
+
+So if we want to run, say, Yoshimi, and attach it to soft server #1, we might do this:
+
+    JACK_DEFAULT_SERVER=SOFT1 bash -c 'yoshimi'
