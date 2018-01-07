@@ -17,31 +17,25 @@ http://kokkinizita.linuxaudio.org/linuxaudio/index.html
 have long been bucking traditional trends, and have been increasing our options for maximum quality for quite a while now.  And 
 zita-njbridge appears to be a method quite close at hand, to give us (a) IP transport between JACK servers along with (b) synchronization-independence, with Zita-class resampling for our wiggle room.
 
-## Current Structure
+## Vocabulary
 
-### Script HARD
+In MultiJACK, we have JACK servers connected to real audio hardware, called "hard servers", and JACK servers not connected to real audio hardware, called "soft servers".  
 
-HARD starts the single JACK server connected to real audio hardware.  I have a USB stereo audio device in use, whose ALSA name (see /proc/asound/cards) is "Device", thus:
+## Current Working Setup
 
-    #/bin/bash
-    echo ""
-    echo "Starting hard JACK server ..."
-    echo ""
-    /usr/bin/jackd -nHARD -dalsa -r48000 -p512 -n3 -Xraw -D -Chw:Device -Phw:Device
+### Standard Cadence/KXStudio JACK setup, for the hard server
 
-In current testing, this is run within its own xterm.
-
-It is unclear whether multiple hard servers could be supported; this might be possible by containerization, so that each hard server would be given its own multicast IP.  Food for thought anyhow.
+A whole lot of problems with JACK setup, control, and cooperation with other components, have been solved by the JACK and KXStudio people, in the newer versions of Cadence and associated tools.  We therefore start here.  It is theoretically possible to use more than one hard server per motherboard, but to do so would probably require containerization, to give each hard server its own effectively independent NIC and IP.
 
 ### Script HARD-IP
 
-HARD-IP needs to be run after HARD starts, after jackd -nHARD is running and confirmed good.  It starts zita-n2j, which connects to the hard server, and waits to receive audio data from soft servers, via multicast on port 54321:
+HARD-IP needs to be run as the first MultiJACK component, after the standard hard server runs.  It starts zita-n2j, which connects to the hard server, and waits to receive audio data from soft servers, via multicast on port 55555:
 
     #/bin/bash
     echo ""
     echo "Starting zita-n2j ..."
     echo ""
-    zita-n2j --jserv HARD 127.0.0.1 54321
+    zita-n2j 224.0.0.1 55555
 
 In current testing, this is run within its own xterm.
 
