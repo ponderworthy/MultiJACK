@@ -65,7 +65,7 @@ SOFT-IP needs to be started after all soft JACK servers are running.  It starts 
     echo ""
     echo "Starting zita-j2n #"$1" ..."
     echo ""
-    zita-j2n --jserv SOFT$1 --float 127.0.0.1 54321
+    zita-j2n --jserv SOFT$1 --float 127.0.0.1 55555
     
 For the current test example, after all of the above are running in their separate xterms, I start two more xterms, one running this command:
 
@@ -79,14 +79,19 @@ the other
 
 So we have the following, each started in its own xterm, in order:
 
-    HARD
     HARD-IP
     SOFT 1
     SOFT 2
     SOFT-IP 1
     SOFT-IP 2
 
-How do we do actual use testing?  Well, to make this work at all, each JACK server has to have its own name.  This has been a standard ability of JACK for ages, but almost never used.  There are two ways to use a named JACK server.  One is via command-line option; for zita-j2n above, the option is "--jserv", and many (but definitely not all, and possibly not even most) JACK client applications will let you specify JACK server name by a command line option.  The other is an environment variable: the JACK client library looks for $JACK_DEFAULT_SERVER, to give the name of the JACK server, and if the variable is present will use it unless told otherwise by code inside the client application.
+So now we have all of these processes running and the IP link is complete.  How do we do actual use testing?  Items of note:
+
+* To run multiple JACK servers on one motherboard, each JACK server has to have its own name.  This has been a standard ability of JACK for ages, but rarely used.  When a name is not specified, there is a default which is universal.
+* Cadence and its corrolary tools is designed to use the default, so in the above setup, we use it too as the single hard server.
+* The soft servers are all named SOFT1, SOFT2, et cetera.
+* There are two ways to use a named JACK server.  One is via command-line option; for zita-j2n above, the option is "--jserv", and many (but definitely not all, and probably not most) JACK client applications will let you specify JACK server name by a command line option.  
+* The other is an environment variable: the JACK client library looks for $JACK_DEFAULT_SERVER, to give the name of the JACK server, and if the variable is present will use it unless told otherwise by code inside the client application.
 
 So if we want to run, say, Yoshimi, and attach it to soft server #1, we might do this:
 
