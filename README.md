@@ -14,7 +14,7 @@ It does appear, that the wiggle room we need, may have to exist in the form of r
 
 http://kokkinizita.linuxaudio.org/linuxaudio/index.html
 
-have long been bucking traditional trends, and have been increasing our options for maximum quality for quite a while now.  And 
+have long been bucking the traditional, and have been increasing our options for maximum quality for quite a while now.  And 
 zita-njbridge appears to be a method quite close at hand, to give us (a) IP transport between JACK servers along with (b) synchronization-independence, with Zita-class resampling for our wiggle room.
 
 ## Vocabulary
