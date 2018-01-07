@@ -85,7 +85,7 @@ So we have the following, each started in its own xterm, in order:
     SOFT-IP 1
     SOFT-IP 2
 
-So now we have all of these processes running and the IP link is complete.  How do we do actual use testing?  Items of note:
+And we have all of these processes running, and the xterm with HARD-IP reports the IP link running.  How do we do actual use testing?  Items of note:
 
 * To run multiple JACK servers on one motherboard, each JACK server has to have its own name.  This has been a standard ability of JACK for ages, but rarely used.  When a name is not specified, there is a default which is universal.
 * Cadence and its corrolary tools is designed to use the default, so in the above setup, we use it too as the single hard server.
@@ -93,10 +93,17 @@ So now we have all of these processes running and the IP link is complete.  How 
 * There are two ways to use a named JACK server.  One is via command-line option; for zita-j2n above, the option is "--jserv", and many (but definitely not all, and probably not most) JACK client applications will let you specify JACK server name by a command line option.  
 * The other is an environment variable: the JACK client library looks for $JACK_DEFAULT_SERVER, to give the name of the JACK server, and if the variable is present will use it unless told otherwise by code inside the client application.
 
-So if we want to run, say, Yoshimi, and attach it to soft server #1, we might do this:
+So if we want to run, say, Yoshimi, and attach it to soft server #1, we do this:
 
     JACK_DEFAULT_SERVER=SOFT1 bash -c 'yoshimi'
     
-### Addendum re: latency and performance
+which runs yoshimi, setting that variable for its run alone.  All of our binaries are now running, and the IP link is functional; but we also need to connect zita-n2j on the hard server, to the real audio hardware outputs, and also Yoshimi, to zita-j2n, on soft server SOFT1.  To do this, we run Patchage, twice:
 
-You may notice that the -p setting in HARD is 512 right now, and 128 in SOFT.  I am currently testing on a non-production box, quite slow, and thus had to set -p512 (giving 32ms latency) for the hard server.  But I was able to set the soft servers to 128, which means according to the zita-njbridge docs, that the total latency is therefore not much more than the hard server's, and CPU load of all of the above running on this dual-core Intel E7300 is less than 10% with lots of other things running including Firefox.  This is a very positive development.  
+    patchage
+    JACK_DEFAULT_SERVER=SOFT1 bash -c 'patchage'
+
+and make the connections.  And then we try Yoshimi using its on-screenkeyboard.  Voila!
+    
+### Addendum re: JACK setup, latency, and performance
+
+At this moment, I have Cadence set up to run JACK with period 512 and number of periods 3, for 10.7ms latency on this relatively slow testing box and its inexpensive USB audio, but you may notice that the period in SOFT is 128.  According to the zita-njbridge docs, the total latency is thus not much more than the hard server's, and CPU load of all of the above running on this aged Intel E7300 is less than 10% with lots of other things running including Firefox.  When testing moves to a performance box, the hard server will be set up with a significantly smaller period, and the soft servers will be set with periods even smaller yet, which is expected to produce either a negligible increase in latency over single-jack, or quite possibly better, given that the hard server is kept so vastly much simpler in its demands.
