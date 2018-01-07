@@ -1,12 +1,12 @@
 # MultiJACK
 
-The purpose of this project is to increase available audio DSP power available to JACK within a single multicore motherboard, using multiple JACK processes in concert, connected via IP transport of some sort.
+The primary purpose of this project is to increase available audio DSP power available to a [JACK audio](http://www.jackaudio.org/) setup within a single multicore motherboard, using multiple JACK processes in concert, connected via IP transport of some sort.  Another purpose is to set up for much more seamless cooperation of multiple motherboards.
 
 ## History and Theory
 
 This project began shortly after I noticed that I was using 75% of JACK DSP capability, while pushing an octocore AMD X3 with 8G RAM to only about 25% CPU, fairly evenly spread out across all cores, including a large amount of audio synthesis as well as soundfont rendering, using only about 10% RAM.  I wanted to add more capability to the box, but had capped out on JACK DSP.
 
-There have been many failed attempts so far.  Noteworthy JACK devs have suggested publicly that it cannot work at all.  The below is working as of this writing.  The second soft server (see Vocabulary below) does not yet communicate; this may be a limitation of localhost networking, options will be explored.
+There have been many failed attempts so far.  Noteworthy JACK devs have suggested publicly that it cannot work at all.  The below is working for two servers simultaneously, as of this writing.  The second soft server (see Vocabulary below) does not yet communicate; this may be a limitation of localhost networking, options will be explored.
 
 Based on both input and experience, it is suggested that NET and NETONE cannot do this at all, because the whole design of JACK is to be as absolutely timing-synchronized as possible: single JACK, NET, and NETONE all behave similarly, not leaving any wiggle-room (CPU and I/O cycle flexibility) left over.  NET and NETONE work nicely with multiple motherboards connected by Ethernet, again building effectively one big lockstepping JACK tarantula with legs in each motherboard, and this is a great way to combine the horsepower of multiple motherboards; and I have thought about buying four or ten Raspberry Pis; but my application needs major CPU for synthesis and rendering and requires physical transportability.  So.  
 
@@ -23,9 +23,9 @@ In MultiJACK, we have JACK servers connected to real audio hardware, called "har
 
 ## Current Working Setup
 
-### Standard Cadence/KXStudio JACK setup, for the hard server
+### Standard [Cadence/KXStudio](http://kxstudio.linuxaudio.org/Applications:Cadence) JACK setup, for the hard server
 
-A whole lot of problems with JACK setup, control, and cooperation with other components, have been solved by the JACK and KXStudio people, in the newer versions of Cadence and associated tools.  We therefore start here.  It is theoretically possible to use more than one hard server per motherboard, but to do so would probably require containerization, to give each hard server its own effectively independent NIC and IP.
+A whole lot of problems with JACK setup, control, and cooperation with other components, have been [solved by the JACK and KXStudio people](https://github.com/jackaudio/jackaudio.github.com/wiki/WalkThrough_User_PulseOnJack), in the newer versions of Cadence and associated tools.  We therefore start here.  It is theoretically possible to use more than one hard server per motherboard, but to do so would probably require containerization, to give each hard server its own effectively independent NIC and IP.
 
 ### Script HARD-IP
 
