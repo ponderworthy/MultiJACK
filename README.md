@@ -10,7 +10,7 @@ There have been many failed attempts so far.  Noteworthy JACK devs have suggeste
 
 Based on both input and experience, it is suggested that NET and NETONE cannot do this at all, because the whole design of JACK is to be as absolutely timing-synchronized as possible: single JACK, NET, and NETONE all behave similarly, not leaving any wiggle-room (CPU and I/O cycle flexibility) left over.  NET and NETONE work nicely with multiple motherboards connected by Ethernet, again building effectively one big lockstepping JACK tarantula with legs in each motherboard, and this is a great way to combine the horsepower of multiple motherboards; and I have thought about buying four or ten Raspberry Pis; but my application needs major CPU for synthesis and rendering and requires physical transportability.  So.  
 
-It does appear, that the wiggle room we need, may have to exist in the form of resampling.  Traditional JACK lore has it that resampling is terrible, awful, quality-destroying tarantula-poison.  However, Fons Adriaensen  and his Zita project:
+One source of the wiggle room we need, may exist in the form of resampling.  Traditional JACK lore has it that resampling is terrible, awful, quality-destroying tarantula-poison.  However, Fons Adriaensen  and his Zita project:
 
 http://kokkinizita.linuxaudio.org/linuxaudio/index.html
 
