@@ -6,7 +6,7 @@ The purpose of this project is to increase available audio DSP power available t
 
 This project began shortly after I noticed that I was using 75% of JACK DSP capability, while pushing an octocore AMD X3 with 8G RAM to only about 25% CPU, fairly evenly spread out across all cores, including a large amount of audio synthesis as well as soundfont rendering, using only about 10% RAM.  I wanted to add more capability to the box, but had capped out on JACK DSP.
 
-There have been many failed attempts so far.  Noteworthy JACK devs have suggested publicly that it cannot work at all.
+There have been many failed attempts so far.  Noteworthy JACK devs have suggested publicly that it cannot work at all.  The below worked for a short time and then stopped, diagnostics are under way.
 
 Based on both input and experience, it is suggested that NET and NETONE cannot do this at all, because the whole design of JACK is to be as absolutely timing-synchronized as possible: single JACK, NET, and NETONE all behave similarly, not leaving any wiggle-room (CPU and I/O cycle flexibility) left over.  NET and NETONE work nicely with multiple motherboards connected by Ethernet, again building effectively one big lockstepping JACK tarantula with legs in each motherboard, and this is a great way to combine the horsepower of multiple motherboards; and I have thought about buying four or ten Raspberry Pis; but my application needs major CPU for synthesis and rendering and requires portability.  So.  It does appear, that the wiggle room we need, may have to exist in the form of resampling.
 
@@ -18,8 +18,6 @@ have long been bucking traditional trends, and have been increasing our options 
 zita-njbridge appears to be a method quite close at hand, to give us (a) IP transport between JACK servers along with (b) synchronization-independence, with Zita-class resampling for our wiggle room.
 
 ## Current Structure
-
-At the moment an initial foundation exists and is working.  Python scripting for control is next.  This will not play ball with Cadence or PulseAudio for the known future, major work on them would be required.  I do use qjackctl to discover and prove jackd command lines and latency settings, but only for discovery and proving, because it too is explicitly not designed for this purpose, and if my experiences are representative, attempts to use it are likely to result in confusion and frustration :-)
 
 ### Script HARD
 
