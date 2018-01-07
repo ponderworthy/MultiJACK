@@ -6,7 +6,7 @@ The purpose of this project is to increase available audio DSP power available t
 
 This project began shortly after I noticed that I was using 75% of JACK DSP capability, while pushing an octocore AMD X3 with 8G RAM to only about 25% CPU, fairly evenly spread out across all cores, including a large amount of audio synthesis as well as soundfont rendering, using only about 10% RAM.  I wanted to add more capability to the box, but had capped out on JACK DSP.
 
-There have been many failed attempts so far.  Noteworthy JACK devs have suggested publicly that it cannot work at all.  The below is working as of now.
+There have been many failed attempts so far.  Noteworthy JACK devs have suggested publicly that it cannot work at all.  The below is working as of this writing.
 
 Based on both input and experience, it is suggested that NET and NETONE cannot do this at all, because the whole design of JACK is to be as absolutely timing-synchronized as possible: single JACK, NET, and NETONE all behave similarly, not leaving any wiggle-room (CPU and I/O cycle flexibility) left over.  NET and NETONE work nicely with multiple motherboards connected by Ethernet, again building effectively one big lockstepping JACK tarantula with legs in each motherboard, and this is a great way to combine the horsepower of multiple motherboards; and I have thought about buying four or ten Raspberry Pis; but my application needs major CPU for synthesis and rendering and requires portability.  So.  It does appear, that the wiggle room we need, may have to exist in the form of resampling.
 
@@ -41,7 +41,7 @@ In current testing, this is run within its own xterm.
 
 ### Script SOFT
 
-SOFT starts JACK servers not connected to audio hardware.  They run the dummy driver.  This script is invoked with a single command-line option, which is the soft server number.  zita-njbridge supports a theoretical maximum of 64 total servers, which means 1 hard and 63 soft.  
+SOFT starts JACK servers not connected to audio hardware.  They run the dummy driver.  This script is invoked with a single command-line option, which is the soft server number.  zita-njbridge supports a theoretical maximum of 64 total JACK servers in concert.
 
     #/bin/bash
     echo ""
@@ -49,7 +49,7 @@ SOFT starts JACK servers not connected to audio hardware.  They run the dummy dr
     echo ""
     /usr/bin/jackd -nSOFT$1 -ddummy -r48000 -p128
 
-For the current test example, after HARD and HARD-IP are running in their separate xterms, I start two more xterms, one running this command:
+For the current test example, after HARD-IP is running in its separate xterm, I start two more xterms, one running this command:
 
     bash SOFT 1
 
