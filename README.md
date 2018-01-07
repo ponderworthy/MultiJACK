@@ -104,6 +104,16 @@ which runs yoshimi, setting that variable for its run alone.  All of our binarie
 
 and make the connections.  And then we try Yoshimi using its on-screenkeyboard.  Voila!
     
-### Addendum re: JACK setup, latency, and performance
+### Addenda
 
-At this moment, I have Cadence set up to run JACK with period 512 and number of periods 3, for 10.7ms latency on this relatively slow testing box and its inexpensive USB audio, but you may notice that the period in SOFT is 128.  According to the zita-njbridge docs, the total latency is thus not much more than the hard server's, and CPU load of all of the above running on this aged Intel E7300 is less than 10% with lots of other things running including Firefox.  When testing moves to a performance box, the hard server will be set up with a significantly smaller period, and the soft server(s) will be set with periods even smaller yet, which is expected to produce either a negligible increase in latency over single-jack, or quite possibly better, if the hard server can be kept extremely simple, and fed by multiple asynchronous soft servers.
+1. At this moment, I have Cadence set up to run JACK with period 512 and number of periods 3, for 10.7ms latency on this relatively slow testing box and its inexpensive USB audio, but you may notice that the period in SOFT is 128.  According to the zita-njbridge docs, the total latency is thus not much more than the hard server's, and CPU load of all of the above running on this aged Intel E7300 is less than 10% with lots of other things running including Firefox.  When testing moves to a performance box, the hard server will be set up with a significantly smaller period, and the soft server(s) will be set with periods even smaller yet, which is expected to produce either a negligible increase in latency over single-jack, or quite possibly better, if the hard server can be kept extremely simple, and fed by multiple asynchronous soft servers.
+
+2. In a [linux-audio-user](https://lists.linuxaudio.org/listinfo/linux-audio-user) post on 2016-04-06, Stéphane Letz suggested:
+
+> jackd2 has a « loopback » driver implemented since day 1 (OK maybe day 2….)
+>
+> - the code is in common/JackLoopbackDriver.cpp, h
+>
+> - it can be activated using  the -L parameter like : jackd -L 4 -d also xxxxxx  to add 4 loopback ports.
+
+At the time, I did not understand it, but I do now.  This does not give multiple-motherboard capability, but it may well permit making much more use of a single motherboard.
