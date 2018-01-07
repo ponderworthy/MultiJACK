@@ -116,4 +116,4 @@ and make the connections.  And then we try Yoshimi using its on-screenkeyboard. 
 >
 > - it can be activated using  the -L parameter like : jackd -L 4 -d also xxxxxx  to add 4 loopback ports.
 
-At the time, I did not understand it, but I do now.  This does not give multiple-motherboard capability, but it may well permit making much more use of a single motherboard.
+At the time, I did not understand it, but I do now.  This does not give multiple-motherboard capability, but it may well permit making much more use of a single motherboard, and there is a whole lot less overhead involved.
