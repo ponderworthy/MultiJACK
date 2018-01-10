@@ -109,7 +109,7 @@ And we have all of these processes running, and the xterms with HARD-IP report t
 * There are two ways to use a named JACK server.  One is via command-line option; for zita-j2n above, the option is "--jserv", and many (but definitely not all, and probably not most) JACK client applications will let you specify JACK server name by a command line option.  
 * The other is an environment variable: the JACK client library looks for $JACK_DEFAULT_SERVER, to give the name of the JACK server, and if the variable is present will use it unless told otherwise by code inside the client application.
 
-So if we want to run, say, Yoshimi, and attach it to soft server #1, we do this:
+So if we want to run, say, [Yoshimi](http://yoshimi.sourceforge.net/), and attach it to soft server #1, we do this:
 
     JACK_DEFAULT_SERVER=SOFT1 bash -c 'yoshimi'
     
