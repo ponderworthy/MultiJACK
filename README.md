@@ -115,7 +115,7 @@ So if we want to run, say, [Yoshimi](http://yoshimi.sourceforge.net/), and attac
     
 which runs yoshimi, setting that variable for its run alone.  
 
-That gives us a signal source on soft server #1.  And all of our binaries are now running, and the IP links are functional. But we also need to connect the zita-n2j instances on the hard server, to the real audio hardware outputs, and also Yoshimi, to zita-j2n, on soft server SOFT1.  To do this, we run Patchage, twice:
+That gives us a signal source on soft server #1.  And all of our binaries are now running, and the IP links are functional. But we also need to connect the zita-n2j instances on the hard server, to the real audio hardware outputs, and also Yoshimi, to zita-j2n, on soft server SOFT1.  To do this, we run [Patchage](http://drobilla.net/software/patchage), twice:
 
     patchage
     JACK_DEFAULT_SERVER=SOFT1 bash -c 'patchage'
@@ -138,7 +138,7 @@ At the time, I did not understand it, but I do now.  This does not give multiple
 
 3.  The next planned step is to automate the setup of the above, using the Python library jpctrl created for the Box of No Return, summarized [here.](http://lsn.ponderworthy.com)
 
-3.  And don't forget to have fun!
+4.  And don't forget to have fun!
 
 Jonathan E. Brickman
 jeb@ponderworthy.com
