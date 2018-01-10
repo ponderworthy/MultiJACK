@@ -71,7 +71,7 @@ Three of these are run, one at a time, each in its own xterm:
 
 ### Script SOFT-IP
 
-SOFT-IP needs to be started after all soft JACK servers are running.  It starts zita-j2n, which connects to each soft server, and then looks for zita-n2j over multicast and connects to it, completing the connections between each soft server and the hard server.
+SOFT-IP needs to be started after all soft JACK servers are running.  It starts zita-j2n, which connects to a soft server, and then looks for zita-n2j on its appropriately numbered port and connects to it, completing the connections between each soft server and the hard server.
 
     #/bin/bash
     echo ""
@@ -101,7 +101,7 @@ So after Cadence has JACK running well, we have the following, each started in i
 
 And we have all of these processes running, and the xterms with HARD-IP report the IP links connected.  How do we do actual use testing?  Items of note:
 
-* To run multiple JACK servers on one motherboard, each JACK server has to have its own name.  This has been a standard ability of JACK for ages, but rarely used.  When a name is not specified, there is a default which is universal.
+* To run multiple JACK servers on one motherboard, each JACK server has to have its own name.  This has been a standard ability of JACK for ages, but often unused.  When a name is not specified, there is a default which is universal.
 * Cadence and its corrolary tools is designed to use the default, so in the above setup, we use the default as the single hard server, to keep things as simple as possible for now :-)  
 * The soft servers are all named SOFT1, SOFT2, et cetera.
 * There are two ways to use a named JACK server.  One is via command-line option; for zita-j2n above, the option is "--jserv", and many (but definitely not all, and probably not most) JACK client applications will let you specify JACK server name by a command line option.  
