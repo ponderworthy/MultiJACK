@@ -134,6 +134,8 @@ and make the connections.  And then we try Yoshimi using its on-screenkeyboard. 
 
 At the time, I did not understand it, but I do now.  This does not give multiple-motherboard capability, but it may well permit making much more use of a single motherboard, and there is a whole lot less overhead involved.  I have tried this a few different ways, and have not been able to get it to work at all; if you have a way, please do get with me!
 
+3.  The next planned step is to automate the setup of the above, using the Python library jpctrl created for the Box of No Return, summarized [here.](http://lsn.ponderworthy.com)
+
 3.  And don't forget to have fun!
 
 Jonathan E. Brickman
