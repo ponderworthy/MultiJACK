@@ -138,7 +138,9 @@ At the time, I did not understand it, but I do now.  This does not give multiple
 
 3.  The next planned step is to automate the setup of the above, using the Python library jpctrl created for the Box of No Return, summarized [here.](http://lsn.ponderworthy.com)
 
-4.  And don't forget to have fun!
+4.  All glory to the Spirit, the Helper of the Son of God!
+
+5.  And don't forget to have fun!
 
 Jonathan E. Brickman
 jeb@ponderworthy.com
