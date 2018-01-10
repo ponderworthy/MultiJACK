@@ -51,7 +51,9 @@ Three of these are run, one at a time, each in its own xterm, a la:
     bash HARD-IP 2
     bash HARD-IP 3
     
-These are the IP receivers, for each transmitter running on every soft server.
+These are the IP receivers, for each transmitter running on every soft server.  
+
+You may notice that each has its own localhost IP, e.g., 127.0.0.1, 127.0.0.2, etc.  This was found to be necessary to avoid errors, it is not clear why.
 
 ### Script SOFT
 
