@@ -6,7 +6,7 @@ The primary purpose of this project is to increase available audio DSP power ava
 
 This project began shortly after I noticed that I was using 75% of JACK DSP capability, while pushing an octocore AMD X3 with 8G RAM to only about 25% CPU, fairly evenly spread out across all cores, including a large amount of audio synthesis as well as soundfont rendering, using only about 10% RAM.  I wanted to add more capability to the box, but had capped out on JACK DSP.
 
-There have been many failed attempts so far.  Noteworthy JACK devs have suggested publicly that it cannot work at all.  The below is working for two servers simultaneously, as of this writing.  The second soft server (see Vocabulary below) does not yet communicate; this may be a limitation of localhost networking, options will be explored.
+There have been many failed attempts so far.  Noteworthy JACK devs have suggested publicly that it cannot work at all.  The below is working for tthree servers simultaneously, as of this writing.  
 
 Based on both input and experience, it is suggested that NET and NETONE cannot do this at all, because the whole design of JACK is to be as absolutely timing-synchronized as possible: single JACK, NET, and NETONE all behave similarly, not leaving any wiggle-room (CPU and I/O cycle flexibility) left over.  NET and NETONE work nicely with multiple motherboards connected by Ethernet, again building effectively one big lockstepping JACK tarantula with legs in each motherboard.  This is a great way to combine the horsepower of multiple motherboards; and I have thought about buying four or ten Raspberry Pis; but my application needs major CPU for synthesis and rendering and requires physical transportability.  So.  
 
@@ -16,6 +16,12 @@ http://kokkinizita.linuxaudio.org/linuxaudio/index.html
 
 have long been bucking the traditional, and have been increasing our options for maximum quality for quite a while now.  And 
 zita-njbridge appears to be a method quite close at hand, to give us (a) IP transport between JACK servers along with (b) synchronization-independence, with Zita-class resampling for our wiggle room.
+
+I wish to thank Fons explicitly for a MultiJACK design contribution: for each soft server, there is a *pair* of zita-n2j and zita-j2n:  
+
+* One n2j for each soft server, runs on the hard server as the receiver; 
+* One j2n runs on each soft server, sending to its respective n2j on the hard server.
+* Each pair, runs on its own IP port.
 
 ## Vocabulary
 
