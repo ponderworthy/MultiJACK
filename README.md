@@ -50,6 +50,8 @@ Three of these are run, one at a time, each in its own xterm, a la:
     bash HARD-IP 1
     bash HARD-IP 2
     bash HARD-IP 3
+    
+These are the IP receivers, for each transmitter running on every soft server.
 
 ### Script SOFT
 
