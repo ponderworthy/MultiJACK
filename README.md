@@ -29,21 +29,27 @@ In MultiJACK, we have JACK servers connected to real audio hardware, called "har
 
 ## Current Working Setup
 
+The current test runs, have three soft servers, and one hard server.
+
 ### Standard [Cadence/KXStudio](http://kxstudio.linuxaudio.org/Applications:Cadence) JACK setup, for the hard server
 
 A whole lot of problems with JACK setup, control, and cooperation with other components, have been [solved by the JACK and KXStudio people](https://github.com/jackaudio/jackaudio.github.com/wiki/WalkThrough_User_PulseOnJack), in the newer versions of Cadence and associated tools.  We therefore start here.  It is theoretically possible to use more than one hard server per motherboard, but to do so would probably require containerization, to give each hard server its own effectively independent NIC and IP.  Unless of course we start looking at multiple motherboards, in which case all we need to do is vary IPs.
 
 ### Script HARD-IP
 
-HARD-IP needs to be run as the first MultiJACK component, after the standard hard server runs.  It starts zita-n2j, which connects to the hard server, and waits to receive audio data from soft servers, via multicast on port 55555:
+HARD-IP needs to be run as the first MultiJACK component, after the standard hard server runs.  
 
     #/bin/bash
     echo ""
-    echo "Starting zita-n2j ..."
+    echo "Starting zita-n2j #$1 ..."
     echo ""
-    zita-n2j 224.0.0.1 55555
+    zita-n2j --jname zita-n2j-mj$1 127.0.0.$1 5555$1
 
-In current testing, this is run within its own xterm.
+Three of these are run, one at a time, each in its own xterm, a la:
+
+    bash HARD-IP 1
+    bash HARD-IP 2
+    bash HARD-IP 3
 
 ### Script SOFT
 
@@ -55,13 +61,11 @@ SOFT starts JACK servers not connected to audio hardware.  They run the dummy dr
     echo ""
     /usr/bin/jackd -nSOFT$1 -ddummy -r48000 -p128
 
-For the current test example, after HARD-IP is running in its separate xterm, I start two more xterms, one running this command:
+Three of these are run, one at a time, each in its own xterm:
 
     bash SOFT 1
-
-the other
-
     bash SOFT 2
+    bash SOFT 3
 
 ### Script SOFT-IP
 
@@ -71,30 +75,32 @@ SOFT-IP needs to be started after all soft JACK servers are running.  It starts 
     echo ""
     echo "Starting zita-j2n #"$1" ..."
     echo ""
-    zita-j2n --jserv SOFT$1 --float 127.0.0.1 55555
+    zita-j2n --jname zita-j2n-mj$1 --jserv SOFT$1 127.0.0.$1 5555$1
     
-For the current test example, after all of the above are running in their separate xterms, I start two more xterms, one running this command:
+Three of these are run, one at a time, each in its own xterm:
 
     bash SOFT-IP 1
-
-the other
-
     bash SOFT-IP 2
+    bash SOFT-IP 3
 
 ### Real Testing and Use
 
-So we have the following, each started in its own xterm, in order:
+So after Cadence has JACK running well, we have the following, each started in its own xterm, in order:
 
-    HARD-IP
-    SOFT 1
-    SOFT 2
-    SOFT-IP 1
-    SOFT-IP 2
+    bash HARD-IP 1
+    bash HARD-IP 2
+    bash HARD-IP 2
+    bash SOFT 1
+    bash SOFT 2
+    bash SOFT 3
+    bash SOFT-IP 1
+    bash SOFT-IP 2
+    bash SOFT-IP 3
 
-And we have all of these processes running, and the xterm with HARD-IP reports the IP link running.  How do we do actual use testing?  Items of note:
+And we have all of these processes running, and the xterms with HARD-IP report the IP links connected.  How do we do actual use testing?  Items of note:
 
 * To run multiple JACK servers on one motherboard, each JACK server has to have its own name.  This has been a standard ability of JACK for ages, but rarely used.  When a name is not specified, there is a default which is universal.
-* Cadence and its corrolary tools is designed to use the default, so in the above setup, we use it too as the single hard server.
+* Cadence and its corrolary tools is designed to use the default, so in the above setup, we use the default as the single hard server, to keep things as simple as possible for now :-)  
 * The soft servers are all named SOFT1, SOFT2, et cetera.
 * There are two ways to use a named JACK server.  One is via command-line option; for zita-j2n above, the option is "--jserv", and many (but definitely not all, and probably not most) JACK client applications will let you specify JACK server name by a command line option.  
 * The other is an environment variable: the JACK client library looks for $JACK_DEFAULT_SERVER, to give the name of the JACK server, and if the variable is present will use it unless told otherwise by code inside the client application.
@@ -103,12 +109,14 @@ So if we want to run, say, Yoshimi, and attach it to soft server #1, we do this:
 
     JACK_DEFAULT_SERVER=SOFT1 bash -c 'yoshimi'
     
-which runs yoshimi, setting that variable for its run alone.  All of our binaries are now running, and the IP link is functional; but we also need to connect zita-n2j on the hard server, to the real audio hardware outputs, and also Yoshimi, to zita-j2n, on soft server SOFT1.  To do this, we run Patchage, twice:
+which runs yoshimi, setting that variable for its run alone.  
+
+That gives us a signal source on soft server #1.  And all of our binaries are now running, and the IP links are functional. But we also need to connect the zita-n2j instances on the hard server, to the real audio hardware outputs, and also Yoshimi, to zita-j2n, on soft server SOFT1.  To do this, we run Patchage, twice:
 
     patchage
     JACK_DEFAULT_SERVER=SOFT1 bash -c 'patchage'
 
-and make the connections.  And then we try Yoshimi using its on-screenkeyboard.  Voila!
+and make the connections.  And then we try Yoshimi using its on-screenkeyboard.  Voila!  We can then add other JACK clients to any of the JACK servers we desire, and watch things behave in wonderful ways.
     
 ### Addenda
 
@@ -122,4 +130,9 @@ and make the connections.  And then we try Yoshimi using its on-screenkeyboard. 
 >
 > - it can be activated using  the -L parameter like : jackd -L 4 -d also xxxxxx  to add 4 loopback ports.
 
-At the time, I did not understand it, but I do now.  This does not give multiple-motherboard capability, but it may well permit making much more use of a single motherboard, and there is a whole lot less overhead involved.
+At the time, I did not understand it, but I do now.  This does not give multiple-motherboard capability, but it may well permit making much more use of a single motherboard, and there is a whole lot less overhead involved.  I have tried this a few different ways, and have not been able to get it to work at all; if you have a way, please do get with me!
+
+3.  And don't forget to have fun!
+
+Jonathan E. Brickman
+jeb@ponderworthy.com
