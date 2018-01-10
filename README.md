@@ -120,7 +120,7 @@ That gives us a signal source on soft server #1.  And all of our binaries are no
     patchage
     JACK_DEFAULT_SERVER=SOFT1 bash -c 'patchage'
 
-and make the connections.  And then we try Yoshimi using its on-screenkeyboard.  Voila!  We can then add other JACK clients to any of the JACK servers we desire, and watch things behave in wonderful ways.
+and make the connections.  And then we try Yoshimi using its on-screenkeyboard.  Voila!  We can then add other JACK clients to any of the JACK servers we desire using additional Patchage runs, and watch things behave in wonderful ways.
     
 ### Addenda
 
