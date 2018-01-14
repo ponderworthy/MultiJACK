@@ -1,6 +1,6 @@
 # MultiJACK
 
-This project contains a fully operational demo of a framework which increases available audio DSP power available to a [JACK audio](http://www.jackaudio.org/) setup within a single multicore motherboard, using multiple JACK processes in concert, connected via IP transport of some sort.  It also forms a beginning for very seamless cooperation of multiple motherboards.
+This project contains a fully operational demo of a framework which increases available audio DSP power available to a [JACK audio](http://www.jackaudio.org/) setup within a single multicore motherboard, using multiple JACK processes in concert, connected via IP transport.  It also forms a beginning for very seamless cooperation of multiple motherboards.
 
 ## History and Theory
 
