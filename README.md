@@ -6,7 +6,7 @@ This project contains a fully operational demo of a framework which increases av
 
 First and last and most of all, we can get a lot more flexibility, a lot more simultaneous complex patch setup, on one motherboard, provided we have major CPU; the current working example uses a 4 GHz octocore AMD.  
 
-Second of all we get a much more stable system, which stays running even through momentary overloads.  In a single-JACK system, a major overload will provoke static and serious unpleasantry through the sound system; when we do MultiJACK, if the major processing is done with clients the 'soft' servers (see below) and not the 'hard' server, overload means silent cutout of just the active chain, not static, and also means it will come back when it can.
+Second of all we get a much more stable system, which stays running even through momentary overloads.  In a single-JACK system, a major overload will provoke static and serious unpleasantry through the sound system; when we do MultiJACK, if the major processing is done with clients of the 'soft' servers (see below) and not the 'hard' server, overload means silent cutout of just the active chain, not static, and also means that chain will come back when it can, no train-wrecks.
 
 ## History and Theory
 
