@@ -134,7 +134,7 @@ and make the connections.  And then we try Yoshimi using its on-screenkeyboard. 
 
 1.  One of the challenges of implementing MultiJACK is automating the startup.  Clearly we do not want to manually start a pile of xterms whenever we play!  The Python library jpctrl, created for the Box of No Return, handles automation of JACK startup, handles this very well.
 
-1.  All glory to the Spirit, the Helper of the Son of God!
+1.  All glory to God!
 
 1.  And don't forget to have fun!
 
