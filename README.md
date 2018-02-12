@@ -130,23 +130,13 @@ and make the connections.  And then we try Yoshimi using its on-screenkeyboard. 
     
 ### Addenda
 
-1. At this moment, I have Cadence set up to run JACK with period 512 and number of periods 3, for 10.7ms latency on this relatively slow testing box and its inexpensive USB audio, but you may notice that the period in SOFT is 128.  According to the zita-njbridge docs, the total latency is thus not much more than the hard server's, and CPU load of all of the above running on this aged Intel E7300 is less than 10% with lots of other things running including Firefox.  When testing moves to a performance box, the hard server will be set up with a significantly smaller period, and the soft server(s) will be set with periods even smaller yet.  This is expected to produce either a negligible increase in latency over single-jack, or quite possibly a net reduction, if the hard server can be kept extremely simple, and fed by multiple asynchronous soft servers.
+1. When last testing the literal above, I had Cadence set up to run JACK with period 512 and number of periods 3, for 10.7ms latency on this relatively slow testing box and its inexpensive USB audio, but you may notice that the period in SOFT is 128.  According to the zita-njbridge docs, the total latency is thus not much more than the hard server's, and CPU load of all of the above running on this aged Intel E7300 is less than 10% with lots of other things running including Firefox.  When rebuilding the [Box of No Return](https://ponderworthy.github.io/the-box-of-no-return/) I found that my new Mackie Onyx Artist was running just fine with JACK latency of just 1.7ms, so this has not been needed, the general word is that human beings cannot detect latencies of less than 5ms.
 
-2. In a [linux-audio-user](https://lists.linuxaudio.org/listinfo/linux-audio-user) post on 2016-04-06, Stéphane Letz suggested:
+1.  One of the challenges of implementing MultiJACK is automating the startup.  Clearly we do not want to manually start a pile of xterms whenever we play!  The Python library jpctrl, created for the Box of No Return, handles automation of JACK startup, handles this very well.
 
-> jackd2 has a « loopback » driver implemented since day 1 (OK maybe day 2….)
->
-> - the code is in common/JackLoopbackDriver.cpp, h
->
-> - it can be activated using  the -L parameter like : jackd -L 4 -d also xxxxxx  to add 4 loopback ports.
+1.  All glory to the Spirit, the Helper of the Son of God!
 
-At the time, I did not understand it, but I do now.  This does not give multiple-motherboard capability, but it may well permit making much more use of a single motherboard, and there is a whole lot less overhead involved.  I have tried this a few different ways, and have not been able to get it to work at all; if you have a way, please do get with me!
-
-3.  The next step is to automate the startup of the above, using the Python library jpctrl created for the Box of No Return, summarized [here.](http://lsn.ponderworthy.com)
-
-4.  All glory to the Spirit, the Helper of the Son of God!
-
-5.  And don't forget to have fun!
+1.  And don't forget to have fun!
 
 Jonathan E. Brickman
 jeb@ponderworthy.com
