@@ -121,16 +121,16 @@ So if we want to run, say, [Yoshimi](http://yoshimi.sourceforge.net/), and attac
     
 which runs yoshimi, setting that variable for its run alone.  
 
-That gives us a signal source on soft server #1.  And all of our binaries are now running, and the IP links are functional. But we also need to connect the zita-n2j instances on the hard server, to the real audio hardware outputs, and also Yoshimi, to zita-j2n, on soft server SOFT1.  To do this, we run [Patchage](http://drobilla.net/software/patchage), twice:
+That gives us a signal source on soft server #1.  And all of our binaries are now running, and the IP links are functional. But we also need to connect the zita-n2j instances on the hard server, to the real audio hardware outputs, and also Yoshimi, to zita-j2n, on soft server SOFT1.  To do this, we run 'catia', part of the Cadence package, twice:
 
-    patchage
-    JACK_DEFAULT_SERVER=SOFT1 bash -c 'patchage'
+    catia
+    JACK_DEFAULT_SERVER=SOFT1 bash -c 'catia'
 
-and make the connections.  And then we try Yoshimi using its on-screenkeyboard.  Voila!  We can then add other JACK clients to any of the JACK servers we desire using additional Patchage runs, and watch things behave in wonderful ways.
+and make the connections.  And then we try Yoshimi using its on-screenkeyboard.  Voila!  We can then add other JACK clients to any of the JACK servers we desire using additional Catia runs, and watch things behave in wonderful ways.
     
 ### Addenda
 
-1. When last testing the literal above, I had Cadence set up to run JACK with period 512 and number of periods 3, for 10.7ms latency on this relatively slow testing box and its inexpensive USB audio, but you may notice that the period in SOFT is 128.  According to the zita-njbridge docs, the total latency is thus not much more than the hard server's, and CPU load of all of the above running on this aged Intel E7300 is less than 10% with lots of other things running including Firefox.  When rebuilding the [Box of No Return](https://ponderworthy.github.io/the-box-of-no-return/) I found that my new Mackie Onyx Artist was running just fine with JACK latency of just 1.7ms, so this has not been needed, the general word is that human beings cannot detect latencies of less than 5ms.
+1. When last testing the literal above, I had Cadence set up to run JACK with period 512 and number of periods 3, for 10.7ms latency on this relatively slow testing box and its inexpensive USB audio, but you may notice that the period in SOFT is 128.  According to the zita-njbridge docs, the total latency is thus not much more than the hard server's, and CPU load of all of the above running on this aged Intel E7300 is less than 10% with lots of other things running including Firefox.  When rebuilding the [Box of No Return](https://ponderworthy.github.io/the-box-of-no-return/) I found that my new Mackie Onyx Artist was running just fine with 96 kHz, period 128, and the very very low JACK latency of just 1.7ms, so this has not been needed, the general word is that human beings cannot detect latencies of less than 5ms.  If this is attempted using less powerful hardware, the first change is to go to 48 kHz and larger period sizes.
 
 1.  One of the challenges of implementing MultiJACK is automating the startup.  Clearly we do not want to manually start a pile of xterms whenever we play!  The Python library jpctrl, created for the Box of No Return, handles automation of JACK startup, handles this very well.
 
