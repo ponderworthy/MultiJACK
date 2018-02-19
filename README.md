@@ -4,9 +4,9 @@ This project contains a fully operational demo of a framework which increases av
 
 ## Practical Advantages
 
-First and last and most of all, we can get a lot more flexibility, a lot more simultaneous complex patch setup, on one motherboard, provided we have major CPU; the current working example uses a 4 GHz octocore AMD.  
+First and last and most of all, we can get a lot more flexibility, a lot more simultaneous complex patch setup, on one motherboard, provided we have major CPU; the current working example uses a 4 GHz octocore AMD with 8 gigabytes RAM.  
 
-Second of all we get a much more stable system, which stays running even through momentary overloads.  In a single-JACK system, a major overload will provoke static and serious unpleasantry through the sound system; when we do MultiJACK, if the major processing is done with clients of the 'soft' servers (see below) and not the 'hard' server, overload means silent cutout of just the active chain, not static, and also means that chain will come back when it can, no train-wrecks.
+Second of all we get a much more stable system, which stays running even through momentary overloads.  In a single-JACK system, a major overload will provoke static and serious unpleasantry through the sound system, and may crash it all. When we do MultiJACK, if the major processing is done with clients of the 'soft' servers (see below) and not the 'hard' server, overload means about a quarter-second of silence (no static through the PA) from the one soft server only, cutout of just only those directly connected processes; and it all comes back quickly, no train-wrecks, because zita-njbridge auto-reconnects.
 
 ## History and Theory
 
