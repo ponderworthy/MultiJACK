@@ -39,7 +39,7 @@ The current test runs, have three soft servers, and one hard server.
 
 ### Standard [Cadence/KXStudio](http://kxstudio.linuxaudio.org/Applications:Cadence) JACK setup, for the hard server
 
-A whole lot of problems with JACK setup, control, and cooperation with other components, have been [solved by the JACK nd KXStudio people](https://github.com/jackaudio/jackaudio.github.com/wiki/WalkThrough_User_PulseOnJack), in the newer versions of Cadence and associated tools.  We therefore start here.  It is theoretically possible to use more than one hard server per motherboard, but to do so would probably require containerization, to give each hard server its own effectively independent NIC and IP.  Unless of course we start looking at multiple motherboards, in which case all we need to do is vary IPs.
+A whole lot of problems with JACK setup, control, and cooperation with other components, have been [solved by the JACK and KXStudio people](https://github.com/jackaudio/jackaudio.github.com/wiki/WalkThrough_User_PulseOnJack), in the newer versions of Cadence and associated tools.  We therefore start here.  
 
 ### Script HARD-IP
 
@@ -59,7 +59,7 @@ Three of these are run, one at a time, each in its own xterm, a la:
     
 These are the IP receivers, for each transmitter running on every soft server.  
 
-You may notice that each has its own localhost IP, e.g., 127.0.0.1, 127.0.0.2, etc.  This was found to be necessary to avoid errors, it is not clear why.
+You may notice that each has its own localhost IP, e.g., 127.0.0.1, 127.0.0.2, etc.  This was found to be necessary to avoid errors, it is not clear why.  
 
 ### Script SOFT
 
