@@ -8,7 +8,7 @@ In MultiJACK, we have JACK servers connected to real audio hardware, called "har
 
 ## Practical Advantages
 
-First and last and most of all, we can get a lot more flexibility, a lot more simultaneous complex patch setup, on one motherboard, provided we have major CPU; the current working example uses a 4 GHz octocore AMD with 8 gigabytes RAM.  
+First and last and most of all, we can get a lot more flexibility, a lot more simultaneous complex patch setup, on one motherboard, provided we have enough CPU; the current working example uses a 4 GHz octocore AMD with 8 gigabytes RAM.  
 
 Second of all we get a much more stable system, which stays running even through momentary overloads.  In a single-JACK system, a major overload will provoke static and serious unpleasantry through the sound system, and may crash it all. When we do MultiJACK, if the major processing is done with clients of the 'soft' servers (see below) and not the 'hard' server, overload means about a quarter-second of silence (no static through the PA) from the one soft server only, cutout of just only those directly connected processes; and it all comes back quickly, no train-wrecks, because zita-njbridge auto-reconnects.
 
